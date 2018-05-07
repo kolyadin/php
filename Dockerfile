@@ -1,4 +1,4 @@
-FROM php:7.1
+FROM php:7.0
 RUN apt-get update
 RUN apt-get install -y libmagickwand-dev imagemagick \
 	&& pecl install Imagick \
