@@ -1,11 +1,10 @@
-FROM php:7.1
+FROM php:7.2
 RUN apt-get update
 RUN apt-get install -y libmagickwand-dev imagemagick \
 	&& pecl install Imagick \
 	&& echo "extension=imagick.so" > /usr/local/etc/php/conf.d/imagick.ini
 
 RUN apt-get install -y libicu-dev && docker-php-ext-install intl
-RUN apt-get install -y libmcrypt-dev && docker-php-ext-install mcrypt
 
 RUN docker-php-ext-install \
         bcmath \
