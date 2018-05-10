@@ -3,7 +3,7 @@ FROM php:7.2
 MAINTAINER aleksey.kolyadin@isobar.ru
 
 RUN apt-get update \
-    && apt-get install -y wget libpng-dev libbz2-dev libicu-dev libpq-dev libmagickwand-dev imagemagick
+    && apt-get install -y wget libpng-dev libbz2-dev libicu-dev libmcrypt-dev libpq-dev libmagickwand-dev
 
 RUN docker-php-ext-install bcmath \
     bz2 \
@@ -11,6 +11,7 @@ RUN docker-php-ext-install bcmath \
     gettext \
     gd \
     intl \
+    mcrypt \
     opcache \
     pcntl \
     pdo_mysql \
