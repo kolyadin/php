@@ -1,5 +1,4 @@
-About
-=====
+# About
 
 Official docker php image with precompiled extensions and composer.
 
@@ -64,7 +63,6 @@ zlib
 *Zend OPcache
 ```
 
-
 ### How to disable xdebug
 ```bash
 rm -f /usr/local/etc/php/conf.d/xdebug.ini
@@ -73,7 +71,6 @@ rm -f /usr/local/etc/php/conf.d/xdebug.ini
 ### How to increase memory limit
 ```bash
 echo 'memory_limit = 1G' >> /usr/local/etc/php/conf.d/extra.ini
-
 ```
 
 ### How to set timezone
