@@ -3,7 +3,7 @@ FROM php:7.2
 MAINTAINER aleksey.kolyadin@isobar.ru
 
 RUN apt-get update \
-    && apt-get install -y wget libpng-dev libbz2-dev libicu-dev libpq-dev libmagickwand-dev
+    && apt-get install -y wget libpng-dev libbz2-dev libicu-dev libmcrypt-dev libpq-dev libmagickwand-dev
 
 RUN docker-php-ext-install bcmath \
     bz2 \
@@ -22,6 +22,7 @@ RUN docker-php-ext-install bcmath \
 
 RUN pecl install Imagick && echo "extension=imagick.so" > /usr/local/etc/php/conf.d/imagick.ini
 RUN pecl install xdebug && echo "zend_extension=xdebug.so" > /usr/local/etc/php/conf.d/xdebug.ini
+RUN pecl install mcrypt-1.0.1 && echo "extension=mcrypt.so" > /usr/local/etc/php/conf.d/mcrypt.ini
 
 RUN cd /usr/local/lib \
 	&& wget https://composer.github.io/installer.sig -O - -q | tr -d '\n' > installer.sig \
@@ -31,5 +32,10 @@ RUN cd /usr/local/lib \
 	&& php -r "unlink('composer-setup.php'); unlink('installer.sig');" \
 	&& mv /usr/local/lib/composer.phar /usr/local/bin/composer
 
-RUN chmod g+w /usr/local/etc/php/conf.d/ && usermod -a -G staff www-data
+RUN chmod g+w /usr/local/etc/php/conf.d/ \
+    && usermod -a -G staff www-data \
+    && mkdir /var/www \
+    && chown www-data:staff /var/www
+
 USER www-data
+WORKDIR /var/www

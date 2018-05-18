@@ -28,6 +28,7 @@ iconv
 json
 libxml
 mbstring
+*mcrypt
 mysqlnd
 openssl
 *pcntl
