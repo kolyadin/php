@@ -32,5 +32,10 @@ RUN cd /usr/local/lib \
 	&& php -r "unlink('composer-setup.php'); unlink('installer.sig');" \
 	&& mv /usr/local/lib/composer.phar /usr/local/bin/composer
 
-RUN chmod g+w /usr/local/etc/php/conf.d/ && usermod -a -G staff www-data
+RUN chmod g+w /usr/local/etc/php/conf.d/ \
+    && usermod -a -G staff www-data \
+    && mkdir /var/www \
+    && chown www-data:staff /var/www
+
 USER www-data
+WORKDIR /var/www
