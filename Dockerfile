@@ -2,8 +2,8 @@ FROM php:7.0-alpine
 
 MAINTAINER aleksey.kolyadin@isobar.ru
 
-RUN apk update \
-    && apk add --no-cache autoconf g++ make imagemagick-dev libtool bzip2-dev icu-dev gettext-dev libpng-dev libmcrypt-dev postgresql-dev libxml2-dev
+RUN apk add --no-cache --virtual .build-deps autoconf g++ make
+RUN apk add --no-cache imagemagick-dev libtool bzip2-dev icu-dev gettext-dev libpng-dev libmcrypt-dev postgresql-dev libxml2-dev
 
 RUN docker-php-ext-install bcmath \
     bz2 \
@@ -24,6 +24,8 @@ RUN docker-php-ext-install bcmath \
 RUN pecl install Imagick && echo "extension=imagick.so" > /usr/local/etc/php/conf.d/imagick.ini
 RUN pecl install xdebug && echo "zend_extension=xdebug.so" > /usr/local/etc/php/conf.d/xdebug.ini
 
+RUN apk del .build-deps
+
 RUN cd /usr/local/lib \
 	&& wget https://composer.github.io/installer.sig -O - -q | tr -d '\n' > installer.sig \
 	&& php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
@@ -32,10 +34,10 @@ RUN cd /usr/local/lib \
 	&& php -r "unlink('composer-setup.php'); unlink('installer.sig');" \
 	&& mv /usr/local/lib/composer.phar /usr/local/bin/composer
 
-RUN chmod g+w /usr/local/etc/php/conf.d/ \
-    && usermod -a -G staff www-data \
+RUN chown root:www-data /usr/local/etc/php/conf.d/ \
+    && chmod -R g+w /usr/local/etc/php/conf.d/ \
     && mkdir /var/www \
-    && chown www-data:staff /var/www
+    && chown www-data:www-data /var/www
 
 USER www-data
 WORKDIR /var/www
