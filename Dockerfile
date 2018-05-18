@@ -1,9 +1,9 @@
-FROM php:7.0
+FROM php:7.0-alpine
 
 MAINTAINER aleksey.kolyadin@isobar.ru
 
-RUN apt-get update \
-    && apt-get install -y wget libpng-dev libbz2-dev libicu-dev libmcrypt-dev libpq-dev libmagickwand-dev
+RUN apk update \
+    && apk add --no-cache autoconf g++ make imagemagick-dev libtool bzip2-dev icu-dev gettext-dev libpng-dev libmcrypt-dev postgresql-dev libxml2-dev
 
 RUN docker-php-ext-install bcmath \
     bz2 \
