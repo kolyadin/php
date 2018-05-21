@@ -3,22 +3,23 @@ FROM php:7.2
 MAINTAINER aleksey.kolyadin@isobar.ru
 
 RUN apt-get update \
-    && apt-get install -y wget libpng-dev libbz2-dev libicu-dev libmcrypt-dev libpq-dev libmagickwand-dev
+    && apt-get install -y wget libpng-dev libjpeg-dev libbz2-dev libicu-dev libmcrypt-dev libpq-dev libmagickwand-dev
 
-RUN docker-php-ext-install bcmath \
-    bz2 \
-    exif \
-    gettext \
-    gd \
-    intl \
-    opcache \
-    pcntl \
-    pdo_mysql \
-    pdo_pgsql \
-    pgsql \
-    soap \
-    sockets \
-    zip
+RUN docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr \
+    && docker-php-ext-install bcmath \
+        bz2 \
+        exif \
+        gettext \
+        gd \
+        intl \
+        opcache \
+        pcntl \
+        pdo_mysql \
+        pdo_pgsql \
+        pgsql \
+        soap \
+        sockets \
+        zip
 
 RUN pecl install Imagick && echo "extension=imagick.so" > /usr/local/etc/php/conf.d/imagick.ini
 RUN pecl install xdebug && echo "zend_extension=xdebug.so" > /usr/local/etc/php/conf.d/xdebug.ini
