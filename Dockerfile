@@ -3,22 +3,23 @@ FROM php:7.2-alpine
 MAINTAINER aleksey.kolyadin@isobar.ru
 
 RUN apk add --no-cache --virtual .build-deps autoconf g++ make
-RUN apk add --no-cache imagemagick-dev libtool bzip2-dev icu-dev gettext-dev libpng-dev libmcrypt-dev postgresql-dev libxml2-dev
+RUN apk add --no-cache imagemagick-dev libtool bzip2-dev icu-dev gettext-dev libpng-dev libjpeg-turbo libjpeg-turbo-dev libmcrypt-dev postgresql-dev libxml2-dev
 
-RUN docker-php-ext-install bcmath \
-    bz2 \
-    exif \
-    gettext \
-    gd \
-    intl \
-    opcache \
-    pcntl \
-    pdo_mysql \
-    pdo_pgsql \
-    pgsql \
-    soap \
-    sockets \
-    zip
+RUN docker-php-ext-configure gd --with-png-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
+    && docker-php-ext-install bcmath \
+        bz2 \
+        exif \
+        gettext \
+        gd \
+        intl \
+        opcache \
+        pcntl \
+        pdo_mysql \
+        pdo_pgsql \
+        pgsql \
+        soap \
+        sockets \
+        zip
 
 RUN pecl install Imagick && echo "extension=imagick.so" > /usr/local/etc/php/conf.d/imagick.ini
 RUN pecl install xdebug && echo "zend_extension=xdebug.so" > /usr/local/etc/php/conf.d/xdebug.ini
