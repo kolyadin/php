@@ -3,7 +3,7 @@ FROM php:7.0
 MAINTAINER aleksey.kolyadin@isobar.ru
 
 RUN apt-get update \
-    && apt-get install -y wget libpng-dev libjpeg-dev libbz2-dev libicu-dev libmcrypt-dev libpq-dev libmagickwand-dev
+    && apt-get install -y wget libpng-dev libjpeg-dev libbz2-dev libicu-dev libmcrypt-dev libpq-dev libmagickwand-dev sudo
 
 RUN docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr \
     && docker-php-ext-install bcmath \
@@ -36,7 +36,8 @@ RUN cd /usr/local/lib \
 RUN chmod g+w /usr/local/etc/php/conf.d/ \
     && usermod -a -G staff www-data \
     && mkdir /var/www \
-    && chown www-data:staff /var/www
+    && chown www-data:staff /var/www \
+    && echo 'www-data  ALL=(ALL:ALL) NOPASSWD: ALL' > /etc/sudoers.d/www-data
 
 USER www-data
 WORKDIR /var/www
