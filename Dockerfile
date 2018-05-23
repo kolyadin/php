@@ -1,4 +1,4 @@
-FROM php:5.6
+FROM php:5.5
 
 MAINTAINER aleksey.kolyadin@isobar.ru
 
