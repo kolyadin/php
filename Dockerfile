@@ -1,4 +1,4 @@
-FROM php:7.0
+FROM php:5.6
 
 MAINTAINER aleksey.kolyadin@isobar.ru
 
@@ -23,7 +23,7 @@ RUN docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr \
         zip
 
 RUN pecl install Imagick && echo "extension=imagick.so" > /usr/local/etc/php/conf.d/imagick.ini
-RUN pecl install xdebug && echo "zend_extension=xdebug.so" > /usr/local/etc/php/conf.d/xdebug.ini
+RUN pecl install xdebug-2.5.5 && echo "zend_extension=xdebug.so" > /usr/local/etc/php/conf.d/xdebug.ini
 
 RUN cd /usr/local/lib \
 	&& wget https://composer.github.io/installer.sig -O - -q | tr -d '\n' > installer.sig \
