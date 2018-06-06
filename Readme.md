@@ -1,3 +1,7 @@
+![alt text](https://img.shields.io/docker/automated/kolyadin/php.svg)
+![alt text](https://img.shields.io/docker/build/kolyadin/php.svg)
+![alt text](https://img.shields.io/docker/pulls/kolyadin/php.svg)
+
 # About
 
 Official docker php image with precompiled extensions and composer.
