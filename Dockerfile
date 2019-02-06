@@ -35,7 +35,6 @@ RUN cd /usr/local/lib \
 
 RUN chmod g+w /usr/local/etc/php/conf.d/ \
     && usermod -a -G staff www-data \
-    && mkdir /var/www \
     && chown www-data:staff /var/www \
     && echo 'www-data  ALL=(ALL:ALL) NOPASSWD: ALL' > /etc/sudoers.d/www-data
 
