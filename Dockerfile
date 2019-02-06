@@ -3,7 +3,7 @@ FROM php:7.3
 MAINTAINER aleksey.kolyadin@isobar.ru
 
 RUN apt-get update \
-    && apt-get install -y wget sudo libpng-dev libjpeg-dev libbz2-dev libicu-dev libmcrypt-dev libpq-dev libmagickwand-dev
+    && apt-get install -y unzip wget sudo libpng-dev libjpeg-dev libbz2-dev libicu-dev libmcrypt-dev libpq-dev libmagickwand-dev
 
 RUN docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr \
     && docker-php-ext-install bcmath \
