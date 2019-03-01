@@ -3,7 +3,7 @@ FROM php:7.1-alpine
 MAINTAINER aleksey.kolyadin@isobar.ru
 
 RUN apk add --no-cache --virtual .build-deps autoconf g++ make
-RUN apk add --no-cache imagemagick-dev libtool bzip2-dev icu-dev gettext-dev libpng-dev libjpeg-turbo libjpeg-turbo-dev libmcrypt-dev postgresql-dev libxml2-dev
+RUN apk add --no-cache git imagemagick-dev libtool bzip2-dev icu-dev gettext-dev libpng-dev libjpeg-turbo libjpeg-turbo-dev libmcrypt-dev postgresql-dev libxml2-dev
 
 RUN docker-php-ext-configure gd --with-png-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install bcmath \
@@ -37,7 +37,6 @@ RUN cd /usr/local/lib \
 
 RUN chown root:www-data /usr/local/etc/php/conf.d/ \
     && chmod -R g+w /usr/local/etc/php/conf.d/ \
-    && mkdir /var/www \
     && chown www-data:www-data /var/www
 
 USER www-data
