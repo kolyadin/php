@@ -38,5 +38,4 @@ RUN chmod g+w /usr/local/etc/php/conf.d/ \
     && chown www-data:staff /var/www \
     && echo 'www-data  ALL=(ALL:ALL) NOPASSWD: ALL' > /etc/sudoers.d/www-data
 
-USER www-data
 WORKDIR /var/www
