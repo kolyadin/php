@@ -5,6 +5,10 @@ MAINTAINER aleksey.kolyadin@isobar.ru
 RUN apt-get update \
     && apt-get install -y git unzip wget sudo libpng-dev libjpeg-dev libbz2-dev libicu-dev libmcrypt-dev libpq-dev libmagickwand-dev
 
+RUN apt-get install -y gnupg \
+    && curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash - \
+    && apt-get install -y nodejs
+
 RUN docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr \
     && docker-php-ext-install bcmath \
         bz2 \
