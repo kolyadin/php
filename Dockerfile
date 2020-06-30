@@ -7,7 +7,7 @@ RUN apt-get update \
 
 RUN apt-get install -y gnupg \
     && curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash - \
-    && apt-get install -y nodejs
+    && apt-get install -y nodejs npm
 
 RUN docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr \
     && docker-php-ext-install bcmath \
